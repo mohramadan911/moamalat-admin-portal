@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { signUp, signIn, signOut, confirmSignUp, getCurrentUser, resendSignUpCode, resetPassword, confirmResetPassword } from 'aws-amplify/auth';
+import { signUp, signIn, signOut, confirmSignUp, getCurrentUser, resendSignUpCode, resetPassword as amplifyResetPassword, confirmResetPassword } from 'aws-amplify/auth';
 import type { User } from '../types';
 
 interface AuthContextType {
@@ -94,7 +94,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const forgotPassword = async (email: string) => {
     try {
-      await resetPassword({ username: email });
+      await amplifyResetPassword({ username: email });
     } catch (error) {
       throw error;
     }
