@@ -23,7 +23,7 @@ export default function RegisterForm() {
 
     try {
       // First create the tenant via API
-      const tenantResponse = await createTenant(data);
+      await createTenant(data);
       
       // Then create the Cognito user
       await signup(data.adminEmail, data.password, data.adminName);
