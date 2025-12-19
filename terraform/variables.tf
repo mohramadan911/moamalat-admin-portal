@@ -13,7 +13,7 @@ variable "environment" {
 variable "github_repository" {
   description = "GitHub repository URL"
   type        = string
-  default     = "https://github.com/your-org/moamalat-admin-portal"
+  default     = "https://github.com/mohramadan911/moamalat-admin-portal"
 }
 
 variable "cognito_user_pool_id" {
