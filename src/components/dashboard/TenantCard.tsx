@@ -1,4 +1,4 @@
-import { TenantInfo } from '../../types';
+import type { TenantInfo } from '../../types';
 
 interface TenantCardProps {
   tenant: TenantInfo;

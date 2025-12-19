@@ -4,7 +4,7 @@ import DashboardLayout from '../components/layout/DashboardLayout';
 import TenantCard from '../components/dashboard/TenantCard';
 import UsageStats from '../components/dashboard/UsageStats';
 import QuickActions from '../components/dashboard/QuickActions';
-import { TenantInfo } from '../types';
+import type { TenantInfo } from '../types';
 import { getTenantInfo } from '../services/api';
 import { getMockTenantData } from '../services/mockData';
 

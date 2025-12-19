@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { fetchAuthSession } from 'aws-amplify/auth';
-import { RegistrationData, RegistrationResponse, TenantInfo } from '../types';
+import type { RegistrationData, RegistrationResponse, TenantInfo } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_ENDPOINT;
 

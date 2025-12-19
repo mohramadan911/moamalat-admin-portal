@@ -1,4 +1,4 @@
-import { TenantInfo } from '../types';
+import type { TenantInfo } from '../types';
 
 // Mock tenant data for testing
 export const getMockTenantData = (): TenantInfo => {

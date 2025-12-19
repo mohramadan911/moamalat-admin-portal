@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { signUp, signIn, signOut, confirmSignUp, getCurrentUser, resendSignUpCode, resetPassword, confirmResetPassword } from 'aws-amplify/auth';
-import { User } from '../types';
+import { signUp, signIn, signOut, confirmSignUp, getCurrentUser, resendSignUpCode, confirmResetPassword } from 'aws-amplify/auth';
+import type { User } from '../types';
 
 interface AuthContextType {
   user: User | null;

@@ -15,6 +15,49 @@ locals {
   db_credentials = jsondecode(data.aws_secretsmanager_secret_version.database.secret_string)
 }
 
+# Get VPC and subnet information
+data "aws_vpc" "moamalat_vpc" {
+  id = "vpc-08900b7b25b33e062"
+}
+
+data "aws_subnets" "private_subnets" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.moamalat_vpc.id]
+  }
+  
+  filter {
+    name   = "subnet-id"
+    values = ["subnet-0678db2951afbaf06", "subnet-098b9c3dade975c5d", "subnet-04c07a5bdd421c591"]
+  }
+}
+
+# Security group for Lambda functions
+resource "aws_security_group" "lambda_sg" {
+  name_prefix = "moamalat-lambda-sg"
+  vpc_id      = data.aws_vpc.moamalat_vpc.id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = [data.aws_vpc.moamalat_vpc.cidr_block]
+  }
+
+  tags = {
+    Name        = "MOAMALAT Lambda Security Group"
+    Environment = var.environment
+    Project     = "MOAMALAT SaaS"
+  }
+}
+
 # Lambda function for tenant registration
 resource "aws_lambda_function" "tenant_registration" {
   filename         = "lambda-registration.zip"
@@ -23,6 +66,11 @@ resource "aws_lambda_function" "tenant_registration" {
   handler         = "index.handler"
   runtime         = "nodejs18.x"
   timeout         = 30
+
+  vpc_config {
+    subnet_ids         = data.aws_subnets.private_subnets.ids
+    security_group_ids = [aws_security_group.lambda_sg.id]
+  }
 
   environment {
     variables = {
@@ -50,6 +98,11 @@ resource "aws_lambda_function" "tenant_info" {
   handler         = "index.handler"
   runtime         = "nodejs18.x"
   timeout         = 30
+
+  vpc_config {
+    subnet_ids         = data.aws_subnets.private_subnets.ids
+    security_group_ids = [aws_security_group.lambda_sg.id]
+  }
 
   environment {
     variables = {
@@ -306,6 +359,7 @@ resource "aws_api_gateway_stage" "prod" {
 resource "aws_amplify_app" "admin_portal" {
   name       = "moamalat-admin-portal"
   repository = var.github_repository
+  access_token = var.github_token
 
   build_spec = <<-EOT
     version: 1
@@ -345,10 +399,8 @@ resource "aws_amplify_app" "admin_portal" {
 resource "aws_amplify_branch" "main" {
   app_id      = aws_amplify_app.admin_portal.id
   branch_name = "main"
-
-  framework = "React"
-  stage     = "PRODUCTION"
-
+  framework   = "React"
+  stage       = "PRODUCTION"
   enable_auto_build = true
 }
 
@@ -410,6 +462,15 @@ resource "aws_iam_role_policy" "lambda_policy" {
           "secretsmanager:GetSecretValue"
         ]
         Resource = data.aws_secretsmanager_secret.database.arn
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "ec2:CreateNetworkInterface",
+          "ec2:DescribeNetworkInterfaces",
+          "ec2:DeleteNetworkInterface"
+        ]
+        Resource = "*"
       }
     ]
   })

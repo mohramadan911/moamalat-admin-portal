@@ -1,5 +1,5 @@
 import { registerTenant } from './api';
-import { RegistrationData, RegistrationResponse } from '../types';
+import type { RegistrationData, RegistrationResponse } from '../types';
 
 export const createTenant = async (data: RegistrationData): Promise<RegistrationResponse> => {
   try {

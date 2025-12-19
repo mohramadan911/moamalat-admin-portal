@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { createTenant } from '../../services/registration';
-import { RegistrationData } from '../../types';
+import type { RegistrationData } from '../../types';
 
 export default function RegisterForm() {
   const [loading, setLoading] = useState(false);
