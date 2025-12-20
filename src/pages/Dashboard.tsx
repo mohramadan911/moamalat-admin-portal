@@ -1,92 +1,119 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import DashboardLayout from '../components/layout/DashboardLayout';
+import { getTenantInfo } from '../services/api';
+import { mockTenants } from '../services/mockData';
 import TenantCard from '../components/dashboard/TenantCard';
 import UsageStats from '../components/dashboard/UsageStats';
-import QuickActions from '../components/dashboard/QuickActions';
 import type { TenantInfo } from '../types';
-import { getTenantInfo } from '../services/api';
-import { getMockTenantData } from '../services/mockData';
 
 export default function Dashboard() {
-  const { user } = useAuth();
-  const [tenantData, setTenantData] = useState<TenantInfo | null>(null);
+  const { user, logout } = useAuth();
+  const [tenants, setTenants] = useState<TenantInfo[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
 
   useEffect(() => {
-    loadTenantData();
+    const fetchTenants = async () => {
+      try {
+        const data = await getTenantInfo();
+        setTenants(data);
+      } catch (error) {
+        console.error('Failed to fetch tenants:', error);
+        // Fallback to mock data
+        setTenants(mockTenants);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTenants();
   }, []);
 
-  const loadTenantData = async () => {
+  const handleLogout = async () => {
     try {
-      // Try to get real data from API
-      const data = await getTenantInfo();
-      setTenantData(data);
-    } catch (err: any) {
-      console.warn('Failed to load tenant data from API, using mock data:', err);
-      // Fallback to mock data for testing
-      const mockData = getMockTenantData();
-      setTenantData(mockData);
-      setError('Using demo data. Connect to API for real data.');
-    } finally {
-      setLoading(false);
+      await logout();
+    } catch (error) {
+      console.error('Logout failed:', error);
     }
   };
 
   if (loading) {
     return (
-      <DashboardLayout>
-        <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="app-shell">
+        <div className="header-shell">
+          <div className="header">
+            <h1 className="header-title">DataServe Dashboard</h1>
+          </div>
         </div>
-      </DashboardLayout>
-    );
-  }
-
-  if (!tenantData) {
-    return (
-      <DashboardLayout>
-        <div className="text-center py-12">
-          <p className="text-gray-600">Failed to load tenant data. Please try again.</p>
-          <button
-            onClick={loadTenantData}
-            className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
-          >
-            Retry
-          </button>
+        <div className="app-main">
+          <div className="chat-area">
+            <div className="chat-panel">
+              <div className="bubble text-center">
+                <div className="typing">
+                  <div className="dot"></div>
+                  <div className="dot"></div>
+                  <div className="dot"></div>
+                </div>
+                <p className="mt-4 text-text-dim">Loading your dashboard...</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </DashboardLayout>
+      </div>
     );
   }
 
   return (
-    <DashboardLayout>
-      <div className="space-y-8">
-        {/* Welcome Section */}
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">
-            Welcome back, {user?.name || 'Admin'}!
-          </h1>
-          <p className="text-gray-600 mt-2">
-            Here's an overview of your MOAMALAT instance
-          </p>
-          {error && (
-            <div className="mt-2 bg-yellow-50 border border-yellow-200 text-yellow-700 px-4 py-2 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
+    <div className="app-shell">
+      <div className="header-shell">
+        <div className="header">
+          <h1 className="header-title">DataServe Dashboard</h1>
+          <div className="ml-auto flex items-center gap-4">
+            <span className="text-text-dim">Welcome, {user?.name || user?.email}</span>
+            <button onClick={handleLogout} className="button subtle">
+              Sign Out
+            </button>
+          </div>
         </div>
-
-        {/* Tenant Information */}
-        <TenantCard tenant={tenantData} />
-
-        {/* Usage Statistics */}
-        <UsageStats usage={tenantData.usage} />
-
-        {/* Quick Actions */}
-        <QuickActions instanceUrl={tenantData.instanceUrl} />
       </div>
-    </DashboardLayout>
+
+      <div className="app-main">
+        <div className="chat-area">
+          <div className="chat-panel">
+            <div className="mb-8">
+              <div className="bubble">
+                <div className="mini-role-tag">
+                  <span>System Status</span>
+                </div>
+                <h2 className="text-2xl font-bold mb-2">Welcome to DataServe</h2>
+                <p className="text-text-dim">
+                  Manage your tenants, monitor usage, and track performance from this central dashboard.
+                </p>
+              </div>
+            </div>
+
+            <div className="mb-8">
+              <UsageStats tenants={tenants} />
+            </div>
+
+            <div className="structured-response">
+              <div className="answer-section">
+                <h3 className="text-xl font-semibold mb-4 text-text">Active Tenants</h3>
+                {tenants.length === 0 ? (
+                  <div className="bubble text-center">
+                    <p className="text-text-dim">No tenants found. Create your first tenant to get started.</p>
+                  </div>
+                ) : (
+                  <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {tenants.map((tenant) => (
+                      <TenantCard key={tenant.id} tenant={tenant} />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

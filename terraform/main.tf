@@ -367,7 +367,8 @@ resource "aws_amplify_app" "admin_portal" {
       phases:
         preBuild:
           commands:
-            - npm ci
+            - rm -rf node_modules package-lock.json
+            - npm install
         build:
           commands:
             - npm run build
