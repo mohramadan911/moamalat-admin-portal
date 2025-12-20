@@ -7,13 +7,18 @@ export interface User {
 }
 
 export interface TenantInfo {
+  id: string;
   tenantId: string;
   companyName: string;
-  status: 'free-trial' | 'paid' | 'suspended';
-  plan: 'free-trial' | 'standard' | 'enterprise';
+  status: 'free-trial' | 'paid' | 'suspended' | 'active';
+  plan: 'free-trial' | 'standard' | 'enterprise' | 'professional';
   createdAt: string;
   trialExpiresAt?: string;
   instanceUrl: string;
+  adminEmail?: string;
+  adminName?: string;
+  phone?: string;
+  industry?: string;
   usage: {
     documentsUploaded: number;
     correspondenceCreated: number;
