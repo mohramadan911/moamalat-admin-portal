@@ -13,7 +13,7 @@ export default function Register() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signUp } = useAuth();
+  const { signup } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -28,10 +28,7 @@ export default function Register() {
     setLoading(true);
 
     try {
-      await signUp(formData.email, formData.password, {
-        'custom:company_name': formData.companyName,
-        'name': formData.adminName
-      });
+      await signup(formData.email, formData.password, formData.adminName);
       navigate('/verify-email');
     } catch (err: any) {
       setError(err.message || 'Failed to create account');

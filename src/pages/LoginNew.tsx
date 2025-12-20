@@ -8,7 +8,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -17,7 +17,7 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await signIn(email, password);
+      await login(email, password);
       navigate('/dashboard');
     } catch (err: any) {
       setError(err.message || 'Failed to sign in');

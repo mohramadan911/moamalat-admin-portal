@@ -6,11 +6,7 @@ import {
   Shield, 
   Zap, 
   ArrowRight, 
-  Check,
-  Star,
-  Globe,
-  Lock,
-  BarChart3
+  Check
 } from 'lucide-react';
 
 export default function Landing() {
