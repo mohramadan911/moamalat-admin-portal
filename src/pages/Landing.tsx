@@ -129,7 +129,13 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '1.5rem',
+            maxWidth: '1200px',
+            margin: '0 auto'
+          }}>
             {[
               {
                 icon: Building2,
@@ -158,14 +164,40 @@ export default function Landing() {
             ].map((feature, index) => (
               <div 
                 key={feature.title}
-                className="glass-card p-8 animate-on-scroll"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="glass-card animate-on-scroll"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: '20px',
+                  padding: '2rem',
+                  transition: 'all 0.3s ease',
+                  animationDelay: `${index * 0.1}s`
+                }}
               >
-                <div className={`feature-icon mb-6 bg-gradient-to-br ${feature.color} bg-opacity-20`}>
-                  <feature.icon className="w-7 h-7 text-white" />
+                <div 
+                  className="feature-icon"
+                  style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '16px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2))',
+                    border: '1px solid rgba(139, 92, 246, 0.3)',
+                    marginBottom: '1.5rem'
+                  }}
+                >
+                  <feature.icon style={{ width: '28px', height: '28px', color: 'white' }} />
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">{feature.title}</h3>
-                <p className="text-white/60 leading-relaxed">{feature.description}</p>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.75rem', color: 'white' }}>
+                  {feature.title}
+                </h3>
+                <p style={{ color: 'rgba(255, 255, 255, 0.6)', lineHeight: '1.6' }}>
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
@@ -175,8 +207,24 @@ export default function Landing() {
       {/* Stats Section */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="glass-card-glow p-12 animate-on-scroll">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div 
+            className="glass-card-glow animate-on-scroll"
+            style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              borderRadius: '24px',
+              padding: '3rem',
+              border: '1px solid rgba(139, 92, 246, 0.3)',
+              boxShadow: '0 0 40px rgba(139, 92, 246, 0.1)'
+            }}
+          >
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gap: '2rem',
+              textAlign: 'center'
+            }}>
               {[
                 { number: '500+', label: 'Enterprise Clients' },
                 { number: '2M+', label: 'Documents Processed' },
@@ -184,8 +232,22 @@ export default function Landing() {
                 { number: '24/7', label: 'Support Available' }
               ].map((stat) => (
                 <div key={stat.label}>
-                  <div className="stat-number">{stat.number}</div>
-                  <div className="text-white/50 mt-2">{stat.label}</div>
+                  <div 
+                    className="stat-number"
+                    style={{
+                      fontSize: '3rem',
+                      fontWeight: '800',
+                      background: 'linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }}
+                  >
+                    {stat.number}
+                  </div>
+                  <div style={{ color: 'rgba(255, 255, 255, 0.5)', marginTop: '0.5rem' }}>
+                    {stat.label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -205,65 +267,164 @@ export default function Landing() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '2rem',
+            maxWidth: '1200px',
+            margin: '0 auto'
+          }}>
             {/* Free Tier */}
-            <div className="glass-card p-8 animate-on-scroll">
-              <h3 className="text-xl font-semibold mb-2">Free Trial</h3>
-              <p className="text-white/50 mb-6">Perfect for evaluation</p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">$0</span>
-                <span className="text-white/50">/month</span>
+            <div 
+              className="glass-card animate-on-scroll"
+              style={{
+                background: 'rgba(255, 255, 255, 0.03)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '20px',
+                padding: '2rem'
+              }}
+            >
+              <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white' }}>Free Trial</h3>
+              <p style={{ color: 'rgba(255, 255, 255, 0.5)', marginBottom: '1.5rem' }}>Perfect for evaluation</p>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <span style={{ fontSize: '2.5rem', fontWeight: '700', color: 'white' }}>$0</span>
+                <span style={{ color: 'rgba(255, 255, 255, 0.5)' }}>/month</span>
               </div>
-              <ul className="space-y-3 mb-8">
+              <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
                 {['Up to 100 documents', '5 users included', 'Basic support', '14-day trial'].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-white/70">
-                    <Check className="w-5 h-5 text-green-400" />
+                  <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                    <Check style={{ width: '20px', height: '20px', color: '#10b981' }} />
                     {item}
                   </li>
                 ))}
               </ul>
-              <Link to="/register" className="btn-secondary w-full text-center block">
+              <Link 
+                to="/register" 
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'center',
+                  padding: '0.875rem 2rem',
+                  background: 'transparent',
+                  color: 'white',
+                  fontWeight: '600',
+                  fontSize: '0.9375rem',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  textDecoration: 'none',
+                  transition: 'all 0.3s ease'
+                }}
+              >
                 Start Free Trial
               </Link>
             </div>
 
             {/* Pro Tier */}
-            <div className="glass-card pricing-card-featured p-8 animate-on-scroll" style={{ animationDelay: '0.1s' }}>
-              <h3 className="text-xl font-semibold mb-2">Professional</h3>
-              <p className="text-white/50 mb-6">For growing teams</p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">$99</span>
-                <span className="text-white/50">/month</span>
+            <div 
+              className="glass-card pricing-card-featured animate-on-scroll"
+              style={{
+                position: 'relative',
+                background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(139, 92, 246, 0.3)',
+                borderRadius: '20px',
+                padding: '2rem',
+                animationDelay: '0.1s'
+              }}
+            >
+              <div style={{
+                position: 'absolute',
+                top: '-12px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                padding: '4px 16px',
+                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                color: 'white',
+                fontSize: '11px',
+                fontWeight: '700',
+                letterSpacing: '1px',
+                borderRadius: '20px'
+              }}>
+                POPULAR
               </div>
-              <ul className="space-y-3 mb-8">
+              <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white' }}>Professional</h3>
+              <p style={{ color: 'rgba(255, 255, 255, 0.5)', marginBottom: '1.5rem' }}>For growing teams</p>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <span style={{ fontSize: '2.5rem', fontWeight: '700', color: 'white' }}>$99</span>
+                <span style={{ color: 'rgba(255, 255, 255, 0.5)' }}>/month</span>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
                 {['Unlimited documents', 'Up to 50 users', 'Priority support', 'Advanced analytics', 'API access'].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-white/70">
-                    <Check className="w-5 h-5 text-green-400" />
+                  <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                    <Check style={{ width: '20px', height: '20px', color: '#10b981' }} />
                     {item}
                   </li>
                 ))}
               </ul>
-              <Link to="/register" className="btn-primary w-full text-center block">
-                <span>Get Started</span>
+              <Link 
+                to="/register" 
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'center',
+                  padding: '0.875rem 2rem',
+                  background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                  color: 'white',
+                  fontWeight: '600',
+                  fontSize: '0.9375rem',
+                  borderRadius: '12px',
+                  border: 'none',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)'
+                }}
+              >
+                Get Started
               </Link>
             </div>
 
             {/* Enterprise Tier */}
-            <div className="glass-card p-8 animate-on-scroll" style={{ animationDelay: '0.2s' }}>
-              <h3 className="text-xl font-semibold mb-2">Enterprise</h3>
-              <p className="text-white/50 mb-6">For large organizations</p>
-              <div className="mb-6">
-                <span className="text-4xl font-bold">Custom</span>
+            <div 
+              className="glass-card animate-on-scroll"
+              style={{
+                background: 'rgba(255, 255, 255, 0.03)',
+                backdropFilter: 'blur(20px)',
+                WebkitBackdropFilter: 'blur(20px)',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                borderRadius: '20px',
+                padding: '2rem',
+                animationDelay: '0.2s'
+              }}
+            >
+              <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white' }}>Enterprise</h3>
+              <p style={{ color: 'rgba(255, 255, 255, 0.5)', marginBottom: '1.5rem' }}>For large organizations</p>
+              <div style={{ marginBottom: '1.5rem' }}>
+                <span style={{ fontSize: '2.5rem', fontWeight: '700', color: 'white' }}>Custom</span>
               </div>
-              <ul className="space-y-3 mb-8">
+              <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
                 {['Unlimited everything', 'Dedicated support', 'Custom integrations', 'SLA guarantee', 'On-premise option'].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-white/70">
-                    <Check className="w-5 h-5 text-green-400" />
+                  <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                    <Check style={{ width: '20px', height: '20px', color: '#10b981' }} />
                     {item}
                   </li>
                 ))}
               </ul>
-              <button className="btn-secondary w-full">
+              <button 
+                style={{
+                  width: '100%',
+                  padding: '0.875rem 2rem',
+                  background: 'transparent',
+                  color: 'white',
+                  fontWeight: '600',
+                  fontSize: '0.9375rem',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+              >
                 Contact Sales
               </button>
             </div>
@@ -274,19 +435,58 @@ export default function Landing() {
       {/* CTA Section */}
       <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto">
-          <div className="glass-card cta-gradient p-12 text-center animate-on-scroll">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <div 
+            className="glass-card cta-gradient animate-on-scroll"
+            style={{
+              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '1px solid rgba(139, 92, 246, 0.2)',
+              borderRadius: '20px',
+              padding: '3rem',
+              textAlign: 'center'
+            }}
+          >
+            <h2 style={{ fontSize: '2.25rem', fontWeight: '700', marginBottom: '1rem', color: 'white' }}>
               Ready to transform your workflow?
             </h2>
-            <p className="text-xl text-white/60 mb-8 max-w-2xl mx-auto">
+            <p style={{ fontSize: '1.25rem', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '2rem', maxWidth: '32rem', margin: '0 auto 2rem' }}>
               Join hundreds of organizations already using MOAMALAT to streamline their correspondence management.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/register" className="btn-primary text-lg px-8 py-4 flex items-center gap-2 justify-center">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', justifyContent: 'center', alignItems: 'center' }}>
+              <Link 
+                to="/register" 
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  padding: '0.875rem 2rem',
+                  background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                  color: 'white',
+                  fontWeight: '600',
+                  fontSize: '1.125rem',
+                  borderRadius: '12px',
+                  textDecoration: 'none',
+                  boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)'
+                }}
+              >
                 <span>Start Free Trial</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight style={{ width: '20px', height: '20px' }} />
               </Link>
-              <Link to="/login" className="btn-secondary text-lg px-8 py-4">
+              <Link 
+                to="/login" 
+                style={{
+                  padding: '0.875rem 2rem',
+                  background: 'transparent',
+                  color: 'white',
+                  fontWeight: '600',
+                  fontSize: '1.125rem',
+                  borderRadius: '12px',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  textDecoration: 'none'
+                }}
+              >
                 Sign In
               </Link>
             </div>
