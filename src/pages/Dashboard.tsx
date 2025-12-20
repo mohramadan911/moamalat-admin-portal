@@ -3,7 +3,6 @@ import { useAuth } from '../contexts/AuthContext';
 import { getTenantInfo } from '../services/api';
 import { mockTenants } from '../services/mockData';
 import TenantCard from '../components/dashboard/TenantCard';
-import UsageStats from '../components/dashboard/UsageStats';
 import type { TenantInfo } from '../types';
 
 export default function Dashboard() {
@@ -15,7 +14,7 @@ export default function Dashboard() {
     const fetchTenants = async () => {
       try {
         const data = await getTenantInfo();
-        setTenants(data);
+        setTenants(Array.isArray(data) ? data : [data]);
       } catch (error) {
         console.error('Failed to fetch tenants:', error);
         // Fallback to mock data
@@ -92,7 +91,27 @@ export default function Dashboard() {
             </div>
 
             <div className="mb-8">
-              <UsageStats tenants={tenants} />
+              <div className="bubble">
+                <h3 className="text-lg font-semibold mb-4">Usage Overview</h3>
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <div className="text-2xl font-bold text-blue-400">
+                      {tenants.reduce((sum, t) => sum + (t.usage?.documentsUploaded || 0), 0)}
+                    </div>
+                    <div className="text-sm text-text-dim">Documents</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-green-400">
+                      {tenants.reduce((sum, t) => sum + (t.usage?.usersCount || 0), 0)}
+                    </div>
+                    <div className="text-sm text-text-dim">Users</div>
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-purple-400">{tenants.length}</div>
+                    <div className="text-sm text-text-dim">Tenants</div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="structured-response">
