@@ -109,8 +109,6 @@ export default function Landing() {
               <span className="text-sm text-white/50">Powered by</span>
               <span className="text-white/70 font-semibold">DataServe</span>
               <span className="text-white/30">|</span>
-              <span className="text-white/70">AWS Partner</span>
-              <span className="text-white/30">|</span>
               <span className="text-white/70">ISO 27001 Certified</span>
             </div>
           </div>
@@ -118,10 +116,10 @@ export default function Landing() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-24 px-6">
+      <section id="features" className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gradient">
+          <div className="text-center mb-20 animate-on-scroll">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">
               Everything you need
             </h2>
             <p className="text-xl text-white/60 max-w-2xl mx-auto">
@@ -205,7 +203,7 @@ export default function Landing() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 px-6">
+      <section className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <div 
             className="glass-card-glow animate-on-scroll"
@@ -256,10 +254,10 @@ export default function Landing() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-24 px-6">
+      <section id="pricing" className="py-32 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-on-scroll">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gradient">
+          <div className="text-center mb-20 animate-on-scroll" style={{ zIndex: 10, position: 'relative' }}>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gradient">
               Simple, transparent pricing
             </h2>
             <p className="text-xl text-white/60">
@@ -272,7 +270,9 @@ export default function Landing() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
             gap: '2rem',
             maxWidth: '1200px',
-            margin: '0 auto'
+            margin: '0 auto',
+            position: 'relative',
+            zIndex: 10
           }}>
             {/* Free Tier */}
             <div 
@@ -433,7 +433,7 @@ export default function Landing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6">
+      <section className="py-32 px-6">
         <div className="max-w-4xl mx-auto">
           <div 
             className="glass-card cta-gradient animate-on-scroll"
