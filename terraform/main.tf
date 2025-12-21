@@ -4,7 +4,7 @@ provider "aws" {
 
 # Get database credentials from Secrets Manager
 data "aws_secretsmanager_secret" "database" {
-  name = "moamalat/shared/database"
+  name = "moamalat-secrets"
 }
 
 data "aws_secretsmanager_secret_version" "database" {
@@ -17,7 +17,7 @@ locals {
 
 # Get VPC and subnet information
 data "aws_vpc" "moamalat_vpc" {
-  id = "vpc-08900b7b25b33e062"
+  id = "vpc-074fbfda710f9a931"
 }
 
 data "aws_subnets" "private_subnets" {
@@ -28,7 +28,7 @@ data "aws_subnets" "private_subnets" {
   
   filter {
     name   = "subnet-id"
-    values = ["subnet-0678db2951afbaf06", "subnet-098b9c3dade975c5d", "subnet-04c07a5bdd421c591"]
+    values = ["subnet-01859110d63358d8f", "subnet-03b9c8ef4c78431c5"]
   }
 }
 
@@ -76,10 +76,11 @@ resource "aws_lambda_function" "tenant_registration" {
     variables = {
       COGNITO_USER_POOL_ID = var.cognito_user_pool_id
       COGNITO_CLIENT_ID    = var.cognito_client_id
-      RDS_ENDPOINT         = local.db_credentials.host
       SES_FROM_EMAIL       = var.ses_from_email
-      DB_USER              = local.db_credentials.username
-      DB_PASSWORD          = local.db_credentials.password
+      # Database variables temporarily removed for migration
+      # RDS_ENDPOINT         = local.db_credentials.host
+      # DB_USER              = local.db_credentials.username
+      # DB_PASSWORD          = local.db_credentials.password
     }
   }
 
@@ -107,9 +108,10 @@ resource "aws_lambda_function" "tenant_info" {
   environment {
     variables = {
       COGNITO_USER_POOL_ID = var.cognito_user_pool_id
-      RDS_ENDPOINT         = local.db_credentials.host
-      DB_USER              = local.db_credentials.username
-      DB_PASSWORD          = local.db_credentials.password
+      # Database variables temporarily removed for migration
+      # RDS_ENDPOINT         = local.db_credentials.host
+      # DB_USER              = local.db_credentials.username
+      # DB_PASSWORD          = local.db_credentials.password
     }
   }
 
