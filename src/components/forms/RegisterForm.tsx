@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Building2, User, Mail, Lock, CreditCard, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { createTenant } from '../../services/registration';
 import type { RegistrationData } from '../../types';
@@ -41,147 +42,309 @@ export default function RegisterForm() {
   };
 
   return (
-    <div className="max-w-md w-full space-y-8">
-      <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900">Create Your Account</h2>
-        <p className="mt-2 text-gray-600">Start your MOAMALAT journey today</p>
-      </div>
+    <>
+      {error && (
+        <div style={{
+          marginBottom: '1.5rem',
+          padding: '1rem',
+          borderRadius: '12px',
+          background: 'rgba(239, 68, 68, 0.1)',
+          border: '1px solid rgba(239, 68, 68, 0.2)',
+          color: '#f87171',
+          fontSize: '0.875rem'
+        }}>
+          {error}
+        </div>
+      )}
 
-      <form className="bg-white p-8 rounded-2xl shadow-lg border space-y-6" onSubmit={handleSubmit(onSubmit)}>
-        {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-            {error}
-          </div>
-        )}
-
-        <div>
-          <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-2">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div style={{ marginBottom: '1.25rem' }}>
+          <label style={{ 
+            display: 'block', 
+            fontSize: '0.875rem', 
+            fontWeight: '500', 
+            color: 'rgba(255, 255, 255, 0.7)',
+            marginBottom: '0.5rem'
+          }}>
             Company Name *
           </label>
-          <input
-            {...register('companyName', { required: 'Company name is required' })}
-            type="text"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter your company name"
-          />
+          <div style={{ position: 'relative' }}>
+            <Building2 style={{
+              position: 'absolute',
+              left: '1rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '20px',
+              height: '20px',
+              color: 'rgba(255, 255, 255, 0.4)'
+            }} />
+            <input
+              {...register('companyName', { required: 'Company name is required' })}
+              type="text"
+              placeholder="Enter your company name"
+              style={{
+                width: '100%',
+                padding: '0.875rem 1rem 0.875rem 3rem',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '12px',
+                color: 'white',
+                fontSize: '0.9375rem',
+                outline: 'none'
+              }}
+            />
+          </div>
           {errors.companyName && (
-            <p className="mt-1 text-sm text-red-600">{errors.companyName.message}</p>
+            <p style={{ marginTop: '0.25rem', fontSize: '0.875rem', color: '#f87171' }}>
+              {errors.companyName.message}
+            </p>
           )}
         </div>
 
-        <div>
-          <label htmlFor="adminName" className="block text-sm font-medium text-gray-700 mb-2">
+        <div style={{ marginBottom: '1.25rem' }}>
+          <label style={{ 
+            display: 'block', 
+            fontSize: '0.875rem', 
+            fontWeight: '500', 
+            color: 'rgba(255, 255, 255, 0.7)',
+            marginBottom: '0.5rem'
+          }}>
             Full Name *
           </label>
-          <input
-            {...register('adminName', { required: 'Full name is required' })}
-            type="text"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter your full name"
-          />
+          <div style={{ position: 'relative' }}>
+            <User style={{
+              position: 'absolute',
+              left: '1rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '20px',
+              height: '20px',
+              color: 'rgba(255, 255, 255, 0.4)'
+            }} />
+            <input
+              {...register('adminName', { required: 'Full name is required' })}
+              type="text"
+              placeholder="Enter your full name"
+              style={{
+                width: '100%',
+                padding: '0.875rem 1rem 0.875rem 3rem',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '12px',
+                color: 'white',
+                fontSize: '0.9375rem',
+                outline: 'none'
+              }}
+            />
+          </div>
           {errors.adminName && (
-            <p className="mt-1 text-sm text-red-600">{errors.adminName.message}</p>
+            <p style={{ marginTop: '0.25rem', fontSize: '0.875rem', color: '#f87171' }}>
+              {errors.adminName.message}
+            </p>
           )}
         </div>
 
-        <div>
-          <label htmlFor="adminEmail" className="block text-sm font-medium text-gray-700 mb-2">
+        <div style={{ marginBottom: '1.25rem' }}>
+          <label style={{ 
+            display: 'block', 
+            fontSize: '0.875rem', 
+            fontWeight: '500', 
+            color: 'rgba(255, 255, 255, 0.7)',
+            marginBottom: '0.5rem'
+          }}>
             Email Address *
           </label>
-          <input
-            {...register('adminEmail', {
-              required: 'Email is required',
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Invalid email address'
-              }
-            })}
-            type="email"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter your email address"
-          />
+          <div style={{ position: 'relative' }}>
+            <Mail style={{
+              position: 'absolute',
+              left: '1rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '20px',
+              height: '20px',
+              color: 'rgba(255, 255, 255, 0.4)'
+            }} />
+            <input
+              {...register('adminEmail', {
+                required: 'Email is required',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Invalid email address'
+                }
+              })}
+              type="email"
+              placeholder="you@company.com"
+              style={{
+                width: '100%',
+                padding: '0.875rem 1rem 0.875rem 3rem',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '12px',
+                color: 'white',
+                fontSize: '0.9375rem',
+                outline: 'none'
+              }}
+            />
+          </div>
           {errors.adminEmail && (
-            <p className="mt-1 text-sm text-red-600">{errors.adminEmail.message}</p>
+            <p style={{ marginTop: '0.25rem', fontSize: '0.875rem', color: '#f87171' }}>
+              {errors.adminEmail.message}
+            </p>
           )}
         </div>
 
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+        <div style={{ marginBottom: '1.25rem' }}>
+          <label style={{ 
+            display: 'block', 
+            fontSize: '0.875rem', 
+            fontWeight: '500', 
+            color: 'rgba(255, 255, 255, 0.7)',
+            marginBottom: '0.5rem'
+          }}>
             Password *
           </label>
-          <input
-            {...register('password', {
-              required: 'Password is required',
-              minLength: {
-                value: 8,
-                message: 'Password must be at least 8 characters'
-              }
-            })}
-            type="password"
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Create a strong password"
-          />
+          <div style={{ position: 'relative' }}>
+            <Lock style={{
+              position: 'absolute',
+              left: '1rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '20px',
+              height: '20px',
+              color: 'rgba(255, 255, 255, 0.4)'
+            }} />
+            <input
+              {...register('password', {
+                required: 'Password is required',
+                minLength: {
+                  value: 8,
+                  message: 'Password must be at least 8 characters'
+                }
+              })}
+              type="password"
+              placeholder="Create a strong password"
+              style={{
+                width: '100%',
+                padding: '0.875rem 1rem 0.875rem 3rem',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '12px',
+                color: 'white',
+                fontSize: '0.9375rem',
+                outline: 'none'
+              }}
+            />
+          </div>
           {errors.password && (
-            <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>
+            <p style={{ marginTop: '0.25rem', fontSize: '0.875rem', color: '#f87171' }}>
+              {errors.password.message}
+            </p>
           )}
         </div>
 
-        <div>
-          <label htmlFor="plan" className="block text-sm font-medium text-gray-700 mb-2">
+        <div style={{ marginBottom: '1.25rem' }}>
+          <label style={{ 
+            display: 'block', 
+            fontSize: '0.875rem', 
+            fontWeight: '500', 
+            color: 'rgba(255, 255, 255, 0.7)',
+            marginBottom: '0.5rem'
+          }}>
             Select Plan *
           </label>
-          <select
-            {...register('plan', { required: 'Please select a plan' })}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="">Choose your plan</option>
-            <option value="free-trial">Free Trial (30 days)</option>
-            <option value="standard">Standard ($29/month)</option>
-            <option value="enterprise">Enterprise ($99/month)</option>
-          </select>
+          <div style={{ position: 'relative' }}>
+            <CreditCard style={{
+              position: 'absolute',
+              left: '1rem',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '20px',
+              height: '20px',
+              color: 'rgba(255, 255, 255, 0.4)'
+            }} />
+            <select
+              {...register('plan', { required: 'Please select a plan' })}
+              style={{
+                width: '100%',
+                padding: '0.875rem 1rem 0.875rem 3rem',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '12px',
+                color: 'white',
+                fontSize: '0.9375rem',
+                outline: 'none'
+              }}
+            >
+              <option value="" style={{ background: '#1a1a1a', color: 'white' }}>Choose your plan</option>
+              <option value="free-trial" style={{ background: '#1a1a1a', color: 'white' }}>Free Trial (30 days)</option>
+              <option value="standard" style={{ background: '#1a1a1a', color: 'white' }}>Standard ($29/month)</option>
+              <option value="enterprise" style={{ background: '#1a1a1a', color: 'white' }}>Enterprise ($99/month)</option>
+            </select>
+          </div>
           {errors.plan && (
-            <p className="mt-1 text-sm text-red-600">{errors.plan.message}</p>
+            <p style={{ marginTop: '0.25rem', fontSize: '0.875rem', color: '#f87171' }}>
+              {errors.plan.message}
+            </p>
           )}
         </div>
 
-        <div className="flex items-start">
-          <input
-            {...register('acceptTerms', { required: 'You must accept the terms and conditions' })}
-            type="checkbox"
-            className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-          />
-          <label htmlFor="acceptTerms" className="ml-3 text-sm text-gray-700">
-            I agree to the{' '}
-            <a href="#" className="text-blue-600 hover:text-blue-500">
-              Terms and Conditions
-            </a>{' '}
-            and{' '}
-            <a href="#" className="text-blue-600 hover:text-blue-500">
-              Privacy Policy
-            </a>
+        <div style={{ marginBottom: '1.5rem' }}>
+          <label style={{ 
+            display: 'flex', 
+            alignItems: 'flex-start', 
+            gap: '0.75rem',
+            color: 'rgba(255, 255, 255, 0.6)',
+            cursor: 'pointer',
+            fontSize: '0.875rem'
+          }}>
+            <input
+              {...register('acceptTerms', { required: 'You must accept the terms and conditions' })}
+              type="checkbox"
+              style={{ marginTop: '0.125rem' }}
+            />
+            <span>
+              I agree to the{' '}
+              <a href="#" style={{ color: '#a78bfa', textDecoration: 'none' }}>
+                Terms and Conditions
+              </a>{' '}
+              and{' '}
+              <a href="#" style={{ color: '#a78bfa', textDecoration: 'none' }}>
+                Privacy Policy
+              </a>
+            </span>
           </label>
+          {errors.acceptTerms && (
+            <p style={{ marginTop: '0.25rem', fontSize: '0.875rem', color: '#f87171' }}>
+              {errors.acceptTerms.message}
+            </p>
+          )}
         </div>
-        {errors.acceptTerms && (
-          <p className="text-sm text-red-600">{errors.acceptTerms.message}</p>
-        )}
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.5rem',
+            padding: '0.875rem 2rem',
+            background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+            color: 'white',
+            fontWeight: '600',
+            fontSize: '0.9375rem',
+            borderRadius: '12px',
+            border: 'none',
+            cursor: loading ? 'not-allowed' : 'pointer',
+            opacity: loading ? 0.7 : 1,
+            boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)'
+          }}
         >
-          {loading ? 'Creating Account...' : 'Create Account'}
+          <span>{loading ? 'Creating Account...' : 'Create Account'}</span>
+          {!loading && <ArrowRight style={{ width: '20px', height: '20px' }} />}
         </button>
-
-        <div className="text-center">
-          <p className="text-sm text-gray-600">
-            Already have an account?{' '}
-            <Link to="/login" className="text-blue-600 hover:text-blue-500 font-medium">
-              Sign in
-            </Link>
-          </p>
-        </div>
       </form>
-    </div>
+    </>
   );
 }
