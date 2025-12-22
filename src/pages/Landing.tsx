@@ -294,40 +294,55 @@ export default function Landing() {
 
       {/* Hero Section - Fixed padding and z-index */}
       <section 
-        className="relative px-6"
         style={{
-          paddingTop: '160px',
-          paddingBottom: '100px',
+          position: 'relative',
+          paddingTop: '180px',
+          paddingBottom: '120px',
+          paddingLeft: '1.5rem',
+          paddingRight: '1.5rem',
           zIndex: 1
         }}
       >
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center max-w-4xl mx-auto">
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', maxWidth: '900px', margin: '0 auto' }}>
             {/* Badge */}
             <div 
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 animate-fade-in-up"
               style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.5rem 1rem',
+                borderRadius: '9999px',
                 background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)'
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                marginBottom: '2.5rem'
               }}
             >
-              <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-              <span className="text-sm text-white/70">Trusted by 500+ enterprises worldwide</span>
+              <span style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                background: '#4ade80',
+                boxShadow: '0 0 8px #4ade80'
+              }} />
+              <span style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                Trusted by 500+ enterprises worldwide
+              </span>
             </div>
 
-            {/* Main heading - Fixed visibility */}
-            <h1 
-              className="text-5xl md:text-7xl font-bold mb-8 leading-tight animate-fade-in-up"
-              style={{ animationDelay: '0.1s' }}
-            >
+            {/* Main heading */}
+            <h1 style={{ marginBottom: '2rem' }}>
               <span 
                 style={{
                   display: 'block',
+                  fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+                  fontWeight: '700',
+                  lineHeight: '1.1',
                   background: 'linear-gradient(135deg, #ffffff 0%, #e0e7ff 50%, #c7d2fe 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
-                  marginBottom: '0.25em'
+                  marginBottom: '0.5rem'
                 }}
               >
                 Correspondence
@@ -335,6 +350,9 @@ export default function Landing() {
               <span 
                 style={{
                   display: 'block',
+                  fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+                  fontWeight: '700',
+                  lineHeight: '1.1',
                   background: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #c084fc 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -347,11 +365,12 @@ export default function Landing() {
 
             {/* Subtitle */}
             <p 
-              className="text-lg md:text-xl mb-12 max-w-2xl mx-auto animate-fade-in-up"
               style={{ 
+                fontSize: 'clamp(1rem, 2vw, 1.25rem)',
                 color: 'rgba(255, 255, 255, 0.6)',
-                animationDelay: '0.2s',
-                lineHeight: '1.7'
+                lineHeight: '1.8',
+                maxWidth: '700px',
+                margin: '0 auto 3rem auto'
               }}
             >
               MOAMALAT is the enterprise-grade platform for managing government correspondence, 
@@ -360,40 +379,85 @@ export default function Landing() {
 
             {/* CTA Buttons */}
             <div 
-              className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up"
-              style={{ animationDelay: '0.3s' }}
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                gap: '1rem',
+                justifyContent: 'center',
+                marginBottom: '4rem'
+              }}
             >
               <Link 
                 to="/register" 
-                className="btn-primary-custom inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold text-white transition-all"
                 style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  padding: '1rem 2rem',
+                  borderRadius: '12px',
+                  fontSize: '1.0625rem',
+                  fontWeight: '600',
+                  color: 'white',
+                  textDecoration: 'none',
                   background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                  boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)'
+                  boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
+                  transition: 'all 0.2s'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(99, 102, 241, 0.5)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(99, 102, 241, 0.4)';
                 }}
               >
                 <span>Start Free Trial</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight style={{ width: '20px', height: '20px' }} />
               </Link>
               <button 
-                className="btn-secondary-custom px-8 py-4 rounded-xl text-lg font-semibold text-white transition-all"
                 style={{
+                  padding: '1rem 2rem',
+                  borderRadius: '12px',
+                  fontSize: '1.0625rem',
+                  fontWeight: '600',
+                  color: 'white',
                   background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
                 }}
               >
                 Watch Demo
               </button>
             </div>
 
-            {/* Trust badges - Fixed spacing */}
+            {/* Trust badges */}
             <div 
-              className="mt-20 flex flex-wrap items-center justify-center gap-6 animate-fade-in-up"
-              style={{ animationDelay: '0.4s' }}
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '1.5rem'
+              }}
             >
-              <span className="text-sm text-white/40">Powered by</span>
-              <span className="text-white/60 font-semibold">DataServe</span>
-              <span className="text-white/20">|</span>
-              <span className="text-white/60">ISO 27001 Certified</span>
+              <span style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.4)' }}>Powered by</span>
+              <span style={{ fontSize: '0.9375rem', color: 'rgba(255, 255, 255, 0.7)', fontWeight: '600' }}>DataServe</span>
+              <span style={{ color: 'rgba(255, 255, 255, 0.2)', fontSize: '1.25rem' }}>|</span>
+              <span style={{ fontSize: '0.9375rem', color: 'rgba(255, 255, 255, 0.7)' }}>AWS Partner</span>
+              <span style={{ color: 'rgba(255, 255, 255, 0.2)', fontSize: '1.25rem' }}>|</span>
+              <span style={{ fontSize: '0.9375rem', color: 'rgba(255, 255, 255, 0.7)' }}>ISO 27001 Certified</span>
             </div>
           </div>
         </div>

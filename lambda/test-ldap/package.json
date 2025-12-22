@@ -1,0 +1,9 @@
+{
+  "name": "test-ldap-function",
+  "version": "1.0.0",
+  "description": "Test LDAP connectivity from Lambda",
+  "main": "index.js",
+  "dependencies": {
+    "ldapts": "^7.1.0"
+  }
+}
