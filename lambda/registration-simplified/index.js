@@ -1,4 +1,4 @@
-const { CognitoIdentityProviderClient, AdminCreateUserCommand } = require('@aws-sdk/client-cognito-identity-provider');
+const { CognitoIdentityProviderClient, AdminCreateUserCommand, AdminSetUserPasswordCommand } = require('@aws-sdk/client-cognito-identity-provider');
 const { SESClient, SendEmailCommand } = require('@aws-sdk/client-ses');
 const { DynamoDBClient, PutItemCommand } = require('@aws-sdk/client-dynamodb');
 
@@ -36,6 +36,17 @@ exports.handler = async (event) => {
 
     await cognitoClient.send(new AdminCreateUserCommand(createUserParams));
     console.log('Cognito user created successfully');
+
+    // Set permanent password
+    const setPasswordParams = {
+      UserPoolId: process.env.COGNITO_USER_POOL_ID,
+      Username: adminEmail,
+      Password: 'TempPass123!', // Users will change this on first login
+      Permanent: true
+    };
+    
+    await cognitoClient.send(new AdminSetUserPasswordCommand(setPasswordParams));
+    console.log('Permanent password set successfully');
 
     // 2. Save to DynamoDB
     const registrationDate = new Date().toISOString();
