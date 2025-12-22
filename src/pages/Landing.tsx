@@ -130,67 +130,164 @@ export default function Landing() {
 
       {/* Navbar - Fixed with proper backdrop */}
       <nav 
-        className="fixed top-0 left-0 right-0"
         style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
           zIndex: 100,
-          background: 'rgba(10, 10, 15, 0.8)',
+          background: 'rgba(10, 10, 15, 0.9)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+          borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-3">
-              <div 
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{
-                  background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)'
-                }}
-              >
-                <Building2 className="w-6 h-6 text-white" />
-              </div>
-              <span 
-                className="text-xl font-bold"
-                style={{
-                  background: 'linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}
-              >
-                MOAMALAT
-              </span>
-            </Link>
-            
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-white/70 hover:text-white transition-colors text-sm">Features</a>
-              <a href="#pricing" className="text-white/70 hover:text-white transition-colors text-sm">Pricing</a>
-              <a href="#about" className="text-white/70 hover:text-white transition-colors text-sm">About</a>
+        <div 
+          style={{
+            maxWidth: '1280px',
+            margin: '0 auto',
+            padding: '1rem 1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}
+        >
+          {/* Logo - Matching Login page style */}
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none' }}>
+            <div 
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)'
+              }}
+            >
+              <Building2 style={{ width: '24px', height: '24px', color: 'white' }} />
             </div>
+            <span 
+              style={{
+                fontSize: '1.25rem',
+                fontWeight: '700',
+                background: 'linear-gradient(135deg, #a78bfa, #ec4899)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >
+              MOAMALAT
+            </span>
+          </Link>
+          
+          {/* Navigation Links - Center */}
+          <div 
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '2rem'
+            }}
+          >
+            <a 
+              href="#features" 
+              style={{ 
+                color: 'rgba(255, 255, 255, 0.7)', 
+                textDecoration: 'none',
+                fontSize: '0.9375rem',
+                fontWeight: '500',
+                transition: 'color 0.2s'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.color = '#a78bfa'}
+              onMouseOut={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)'}
+            >
+              Features
+            </a>
+            <a 
+              href="#pricing" 
+              style={{ 
+                color: 'rgba(255, 255, 255, 0.7)', 
+                textDecoration: 'none',
+                fontSize: '0.9375rem',
+                fontWeight: '500',
+                transition: 'color 0.2s'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.color = '#a78bfa'}
+              onMouseOut={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)'}
+            >
+              Pricing
+            </a>
+            <a 
+              href="#about" 
+              style={{ 
+                color: 'rgba(255, 255, 255, 0.7)', 
+                textDecoration: 'none',
+                fontSize: '0.9375rem',
+                fontWeight: '500',
+                transition: 'color 0.2s'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.color = '#a78bfa'}
+              onMouseOut={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.7)'}
+            >
+              About
+            </a>
+          </div>
 
-            <div className="flex items-center gap-3">
-              <Link 
-                to="/login" 
-                className="btn-secondary-custom px-5 py-2.5 rounded-xl text-sm font-medium text-white transition-all"
-                style={{
-                  background: 'transparent',
-                  border: '1px solid rgba(255, 255, 255, 0.2)'
-                }}
-              >
-                Sign In
-              </Link>
-              <Link 
-                to="/register" 
-                className="btn-primary-custom px-5 py-2.5 rounded-xl text-sm font-medium text-white transition-all"
-                style={{
-                  background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                  boxShadow: '0 4px 15px rgba(99, 102, 241, 0.4)'
-                }}
-              >
-                Get Started
-              </Link>
-            </div>
+          {/* Buttons - Matching Login page style */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <Link 
+              to="/login" 
+              style={{
+                padding: '0.875rem 1.5rem',
+                borderRadius: '12px',
+                fontSize: '0.9375rem',
+                fontWeight: '600',
+                color: 'white',
+                textDecoration: 'none',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                transition: 'all 0.2s'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              }}
+            >
+              Sign In
+            </Link>
+            <Link 
+              to="/register" 
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.875rem 1.5rem',
+                borderRadius: '12px',
+                fontSize: '0.9375rem',
+                fontWeight: '600',
+                color: 'white',
+                textDecoration: 'none',
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
+                border: 'none',
+                transition: 'all 0.2s'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 25px rgba(99, 102, 241, 0.5)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 20px rgba(99, 102, 241, 0.4)';
+              }}
+            >
+              <span>Get Started</span>
+              <ArrowRight style={{ width: '18px', height: '18px' }} />
+            </Link>
           </div>
         </div>
       </nav>
