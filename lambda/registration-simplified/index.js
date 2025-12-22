@@ -23,14 +23,15 @@ exports.handler = async (event) => {
     
     console.log('Registration request:', { companyName, adminEmail, adminName, plan });
 
-    // 1. Create Cognito user with email verification
+    // 1. Create Cognito user without email verification
     const createUserParams = {
       UserPoolId: process.env.COGNITO_USER_POOL_ID,
       Username: adminEmail,
-      MessageAction: 'RESEND',
+      MessageAction: 'SUPPRESS',
       UserAttributes: [
         { Name: 'email', Value: adminEmail },
-        { Name: 'name', Value: adminName }
+        { Name: 'name', Value: adminName },
+        { Name: 'email_verified', Value: 'true' }
       ]
     };
 
@@ -72,16 +73,17 @@ exports.handler = async (event) => {
     await dynamoClient.send(new PutItemCommand(dynamoParams));
     console.log('DynamoDB record saved successfully');
 
-    // 3. Skip SES email for now - user will get Cognito verification email
-    console.log('Registration completed - user will receive Cognito verification email');
+    // 3. Skip email sending for now - just save registration
+    console.log('Registration completed - email sending skipped in development');
 
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify({
         success: true,
-        message: 'Registration successful! Please check your email to verify your account, then contact support for instance access.',
-        requiresVerification: true
+        message: 'Registration successful! Your account has been created. Please contact support for instance access.',
+        instanceUrl: process.env.INSTANCE_URL,
+        note: 'Email notifications are currently disabled during testing phase.'
       })
     };
 
