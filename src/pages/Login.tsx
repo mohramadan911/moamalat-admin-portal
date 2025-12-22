@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Building2, Mail, Lock, ArrowRight } from 'lucide-react';
+import { Building2, Mail, Lock, ArrowRight, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Login() {
@@ -8,7 +8,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -23,6 +23,19 @@ export default function Login() {
       setError(err.message || 'Failed to sign in');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleClearSession = async () => {
+    try {
+      await logout();
+      setError('');
+      // Show success message briefly
+      setError('Session cleared. You can now sign in.');
+      setTimeout(() => setError(''), 3000);
+    } catch (err: any) {
+      setError('Session cleared.');
+      setTimeout(() => setError(''), 3000);
     }
   };
 
@@ -258,11 +271,35 @@ export default function Login() {
               border: 'none',
               cursor: loading ? 'not-allowed' : 'pointer',
               opacity: loading ? 0.7 : 1,
-              boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)'
+              boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
+              marginBottom: '0.75rem'
             }}
           >
             <span>{loading ? 'Signing in...' : 'Sign In'}</span>
             {!loading && <ArrowRight style={{ width: '20px', height: '20px' }} />}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleClearSession}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              padding: '0.75rem 2rem',
+              background: 'rgba(255, 255, 255, 0.05)',
+              color: 'rgba(255, 255, 255, 0.7)',
+              fontWeight: '500',
+              fontSize: '0.875rem',
+              borderRadius: '12px',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              cursor: 'pointer'
+            }}
+          >
+            <LogOut style={{ width: '16px', height: '16px' }} />
+            <span>Clear Session</span>
           </button>
         </form>
 

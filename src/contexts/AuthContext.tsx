@@ -43,6 +43,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
+      // Sign out any existing session first
+      try {
+        await signOut();
+      } catch (signOutError) {
+        // Ignore sign out errors if no user is signed in
+      }
+      
       await signIn({ username: email, password });
       await checkAuthState();
     } catch (error) {
