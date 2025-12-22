@@ -30,7 +30,6 @@ export interface RegistrationData {
   companyName: string;
   adminEmail: string;
   adminName: string;
-  password: string;
   plan: 'free-trial' | 'standard' | 'enterprise';
   acceptTerms: boolean;
 }
