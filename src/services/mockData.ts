@@ -26,8 +26,8 @@ export const mockTenants: TenantInfo[] = [
   getMockTenantData(),
   {
     id: 'Test-corporation',
-    tenantId: 'tech-startup',
-    companyName: 'Tech Startup Inc',
+    tenantId: 'Test-corporation',
+    companyName: 'Test Corporation',
     status: 'active',
     plan: 'professional',
     createdAt: '2024-11-15T00:00:00Z',
