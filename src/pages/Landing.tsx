@@ -393,8 +393,6 @@ export default function Landing() {
               <span className="text-sm text-white/40">Powered by</span>
               <span className="text-white/60 font-semibold">DataServe</span>
               <span className="text-white/20">|</span>
-              <span className="text-white/60">AWS Partner</span>
-              <span className="text-white/20">|</span>
               <span className="text-white/60">ISO 27001 Certified</span>
             </div>
           </div>

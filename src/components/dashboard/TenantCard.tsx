@@ -26,10 +26,19 @@ export default function TenantCard({ tenant }: TenantCardProps) {
     });
   };
 
+  const handleOpenInstance = () => {
+    window.open(tenant.instanceUrl, '_blank', 'noopener,noreferrer');
+  };
+
   return (
-    <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
+    <div 
+      onClick={handleOpenInstance}
+      className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 cursor-pointer hover:shadow-xl hover:border-blue-300 transition-all duration-200 group"
+    >
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Your MOAMALAT Instance</h2>
+        <h2 className="text-2xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+          Your MOAMALAT Instance
+        </h2>
         <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(tenant.status)}`}>
           {tenant.status === 'free-trial' ? 'Free Trial' : tenant.status}
         </span>
@@ -56,14 +65,9 @@ export default function TenantCard({ tenant }: TenantCardProps) {
         <div className="space-y-4">
           <div>
             <label className="text-sm font-medium text-gray-500">Instance URL</label>
-            <a 
-              href={tenant.instanceUrl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-lg text-blue-600 hover:text-blue-800 break-all"
-            >
+            <p className="text-lg text-blue-600 group-hover:text-blue-800 break-all font-medium">
               {tenant.instanceUrl}
-            </a>
+            </p>
           </div>
 
           <div>
@@ -78,6 +82,13 @@ export default function TenantCard({ tenant }: TenantCardProps) {
             </div>
           )}
         </div>
+      </div>
+
+      <div className="mt-6 flex items-center justify-center text-blue-600 group-hover:text-blue-800 transition-colors">
+        <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+        <span className="font-medium">Click to open MOAMALAT</span>
       </div>
     </div>
   );
