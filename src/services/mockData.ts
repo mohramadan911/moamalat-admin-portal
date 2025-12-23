@@ -3,9 +3,9 @@ import type { TenantInfo } from '../types';
 // Mock tenant data for testing
 export const getMockTenantData = (): TenantInfo => {
   return {
-    id: 'Test-corporation',
-    tenantId: 'Test-corporation',
-    companyName: 'Test Corporation',
+    id: 'Test-free-trial',
+    tenantId: 'Test-free-trial',
+    companyName: 'DataServe',
     status: 'free-trial',
     plan: 'free-trial',
     createdAt: '2024-12-01T00:00:00Z',

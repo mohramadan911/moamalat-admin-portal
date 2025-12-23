@@ -627,18 +627,23 @@ export default function Landing() {
       {/* Pricing Section - Fixed spacing and badge positioning */}
       <section 
         id="pricing" 
-        className="relative px-6"
         style={{
+          position: 'relative',
           paddingTop: '100px',
           paddingBottom: '100px',
+          paddingLeft: '1.5rem',
+          paddingRight: '1.5rem',
           zIndex: 1
         }}
       >
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-on-scroll">
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          {/* Section Header - with extra bottom margin for POPULAR badge */}
+          <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
             <h2 
-              className="text-4xl md:text-5xl font-bold mb-6"
               style={{
+                fontSize: 'clamp(2rem, 5vw, 3rem)',
+                fontWeight: '700',
+                marginBottom: '1rem',
                 background: 'linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #c084fc 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -647,22 +652,22 @@ export default function Landing() {
             >
               Simple, transparent pricing
             </h2>
-            <p className="text-xl" style={{ color: 'rgba(255, 255, 255, 0.6)' }}>
+            <p style={{ fontSize: '1.125rem', color: 'rgba(255, 255, 255, 0.6)' }}>
               Start free, scale as you grow
             </p>
           </div>
 
           <div 
-            className="grid gap-8"
             style={{
+              display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: '2rem',
               maxWidth: '1100px',
               margin: '0 auto'
             }}
           >
             {/* Free Tier */}
             <div 
-              className="glass-card animate-on-scroll"
               style={{
                 background: 'rgba(255, 255, 255, 0.03)',
                 backdropFilter: 'blur(20px)',
@@ -671,6 +676,14 @@ export default function Landing() {
                 borderRadius: '24px',
                 padding: '2.5rem',
                 transition: 'all 0.3s ease'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.4)';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
               <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white' }}>
@@ -702,20 +715,35 @@ export default function Landing() {
               </ul>
               <Link 
                 to="/register" 
-                className="btn-secondary-custom block w-full text-center py-4 rounded-xl font-semibold text-white transition-all"
                 style={{
-                  background: 'transparent',
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'center',
+                  padding: '1rem',
+                  borderRadius: '12px',
+                  fontWeight: '600',
+                  fontSize: '0.9375rem',
+                  color: 'white',
+                  textDecoration: 'none',
+                  background: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
-                  textDecoration: 'none'
+                  transition: 'all 0.2s'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
                 }}
               >
                 Start Free Trial
               </Link>
             </div>
 
-            {/* Pro Tier - Fixed badge */}
+            {/* Pro Tier - with POPULAR badge */}
             <div 
-              className="glass-card animate-on-scroll"
               style={{
                 position: 'relative',
                 background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.08) 100%)',
@@ -726,25 +754,33 @@ export default function Landing() {
                 padding: '2.5rem',
                 paddingTop: '3rem',
                 transition: 'all 0.3s ease',
-                transitionDelay: '0.1s',
                 boxShadow: '0 0 40px rgba(139, 92, 246, 0.15)'
               }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 0 60px rgba(139, 92, 246, 0.25)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 0 40px rgba(139, 92, 246, 0.15)';
+              }}
             >
-              {/* Popular badge - Fixed positioning */}
+              {/* Popular badge - positioned at top of card */}
               <div 
                 style={{
                   position: 'absolute',
-                  top: '0',
+                  top: '-14px',
                   left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  padding: '6px 20px',
+                  transform: 'translateX(-50%)',
+                  padding: '8px 24px',
                   background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
                   color: 'white',
-                  fontSize: '11px',
+                  fontSize: '12px',
                   fontWeight: '700',
                   letterSpacing: '1.5px',
                   borderRadius: '20px',
-                  boxShadow: '0 4px 15px rgba(99, 102, 241, 0.4)'
+                  boxShadow: '0 4px 15px rgba(99, 102, 241, 0.5)',
+                  whiteSpace: 'nowrap'
                 }}
               >
                 POPULAR
@@ -779,11 +815,25 @@ export default function Landing() {
               </ul>
               <Link 
                 to="/register" 
-                className="btn-primary-custom block w-full text-center py-4 rounded-xl font-semibold text-white transition-all"
                 style={{
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'center',
+                  padding: '1rem',
+                  borderRadius: '12px',
+                  fontWeight: '600',
+                  fontSize: '0.9375rem',
+                  color: 'white',
+                  textDecoration: 'none',
                   background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
                   boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
-                  textDecoration: 'none'
+                  transition: 'all 0.2s'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.boxShadow = '0 6px 30px rgba(99, 102, 241, 0.5)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(99, 102, 241, 0.4)';
                 }}
               >
                 Get Started
@@ -792,7 +842,6 @@ export default function Landing() {
 
             {/* Enterprise Tier */}
             <div 
-              className="glass-card animate-on-scroll"
               style={{
                 background: 'rgba(255, 255, 255, 0.03)',
                 backdropFilter: 'blur(20px)',
@@ -800,8 +849,15 @@ export default function Landing() {
                 border: '1px solid rgba(255, 255, 255, 0.08)',
                 borderRadius: '24px',
                 padding: '2.5rem',
-                transition: 'all 0.3s ease',
-                transitionDelay: '0.2s'
+                transition: 'all 0.3s ease'
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.4)';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.transform = 'translateY(0)';
               }}
             >
               <h3 style={{ fontSize: '1.5rem', fontWeight: '600', marginBottom: '0.5rem', color: 'white' }}>
@@ -831,10 +887,27 @@ export default function Landing() {
                 ))}
               </ul>
               <button 
-                className="btn-secondary-custom w-full py-4 rounded-xl font-semibold text-white transition-all cursor-pointer"
                 style={{
-                  background: 'transparent',
-                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'center',
+                  padding: '1rem',
+                  borderRadius: '12px',
+                  fontWeight: '600',
+                  fontSize: '0.9375rem',
+                  color: '#a78bfa',
+                  background: 'rgba(139, 92, 246, 0.1)',
+                  border: '1px solid rgba(139, 92, 246, 0.3)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'rgba(139, 92, 246, 0.2)';
+                  e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.5)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'rgba(139, 92, 246, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.3)';
                 }}
               >
                 Contact Sales
