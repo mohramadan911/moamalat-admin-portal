@@ -919,39 +919,76 @@ export default function Landing() {
 
       {/* CTA Section */}
       <section 
-        className="relative px-6"
         style={{
+          position: 'relative',
           paddingTop: '80px',
           paddingBottom: '100px',
+          paddingLeft: '1.5rem',
+          paddingRight: '1.5rem',
           zIndex: 1
         }}
       >
-        <div className="max-w-4xl mx-auto">
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <div 
-            className="animate-on-scroll text-center"
             style={{
-              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%)',
+              background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.08) 100%)',
               backdropFilter: 'blur(20px)',
               WebkitBackdropFilter: 'blur(20px)',
-              border: '1px solid rgba(139, 92, 246, 0.2)',
+              border: '1px solid rgba(139, 92, 246, 0.3)',
               borderRadius: '24px',
-              padding: '4rem 3rem'
+              padding: '4rem 3rem',
+              textAlign: 'center'
             }}
           >
-            <h2 style={{ fontSize: '2.5rem', fontWeight: '700', marginBottom: '1rem', color: 'white' }}>
+            <h2 style={{ 
+              fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', 
+              fontWeight: '700', 
+              marginBottom: '1.5rem', 
+              color: 'white' 
+            }}>
               Ready to transform your workflow?
             </h2>
-            <p style={{ fontSize: '1.25rem', color: 'rgba(255, 255, 255, 0.6)', marginBottom: '2.5rem', maxWidth: '32rem', margin: '0 auto 2.5rem' }}>
+            <p style={{ 
+              fontSize: '1.125rem', 
+              color: 'rgba(255, 255, 255, 0.6)', 
+              maxWidth: '32rem', 
+              margin: '0 auto 2.5rem',
+              lineHeight: '1.7'
+            }}>
               Join hundreds of organizations already using MOAMALAT to streamline their correspondence management.
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              gap: '1rem', 
+              justifyContent: 'center', 
+              alignItems: 'center' 
+            }}>
               <Link 
                 to="/register" 
-                className="btn-primary-custom inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-lg font-semibold text-white transition-all"
                 style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  padding: '1rem 2rem',
+                  borderRadius: '12px',
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  color: 'white',
+                  textDecoration: 'none',
                   background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
                   boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
-                  textDecoration: 'none'
+                  transition: 'all 0.2s'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 30px rgba(99, 102, 241, 0.5)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(99, 102, 241, 0.4)';
                 }}
               >
                 <span>Start Free Trial</span>
@@ -959,11 +996,27 @@ export default function Landing() {
               </Link>
               <Link 
                 to="/login" 
-                className="btn-secondary-custom px-8 py-4 rounded-xl font-semibold text-white transition-all"
                 style={{
-                  background: 'transparent',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '1rem 2rem',
+                  borderRadius: '12px',
+                  fontSize: '1rem',
+                  fontWeight: '600',
+                  color: 'white',
+                  textDecoration: 'none',
+                  background: 'rgba(255, 255, 255, 0.05)',
                   border: '1px solid rgba(255, 255, 255, 0.2)',
-                  textDecoration: 'none'
+                  transition: 'all 0.2s'
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
                 }}
               >
                 Sign In
@@ -975,35 +1028,86 @@ export default function Landing() {
 
       {/* Footer */}
       <footer 
-        className="relative px-6 py-12"
         style={{
+          position: 'relative',
+          padding: '3rem 1.5rem',
           borderTop: '1px solid rgba(255, 255, 255, 0.05)',
           zIndex: 1
         }}
       >
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-3">
+        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+          <div style={{ 
+            display: 'flex', 
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '2rem',
+            textAlign: 'center'
+          }}>
+            {/* Logo */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <div 
-                className="w-8 h-8 rounded-lg flex items-center justify-center"
                 style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)'
                 }}
               >
-                <Building2 className="w-5 h-5 text-white" />
+                <Building2 style={{ width: '20px', height: '20px', color: 'white' }} />
               </div>
-              <span className="font-semibold" style={{ color: 'rgba(255, 255, 255, 0.8)' }}>
+              <span style={{ fontWeight: '600', color: 'rgba(255, 255, 255, 0.8)' }}>
                 MOAMALAT by DataServe
               </span>
             </div>
             
-            <div className="flex items-center gap-6 text-sm" style={{ color: 'rgba(255, 255, 255, 0.5)' }}>
-              <a href="#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms</a>
-              <a href="#" className="hover:text-white transition-colors">Contact</a>
+            {/* Links */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+              <a 
+                href="#" 
+                style={{ 
+                  color: 'rgba(255, 255, 255, 0.5)', 
+                  textDecoration: 'none',
+                  fontSize: '0.875rem',
+                  transition: 'color 0.2s'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.color = '#a78bfa'}
+                onMouseOut={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.5)'}
+              >
+                Privacy
+              </a>
+              <a 
+                href="#" 
+                style={{ 
+                  color: 'rgba(255, 255, 255, 0.5)', 
+                  textDecoration: 'none',
+                  fontSize: '0.875rem',
+                  transition: 'color 0.2s'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.color = '#a78bfa'}
+                onMouseOut={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.5)'}
+              >
+                Terms
+              </a>
+              <a 
+                href="#" 
+                style={{ 
+                  color: 'rgba(255, 255, 255, 0.5)', 
+                  textDecoration: 'none',
+                  fontSize: '0.875rem',
+                  transition: 'color 0.2s'
+                }}
+                onMouseOver={(e) => e.currentTarget.style.color = '#a78bfa'}
+                onMouseOut={(e) => e.currentTarget.style.color = 'rgba(255, 255, 255, 0.5)'}
+              >
+                Contact
+              </a>
             </div>
 
-            <p className="text-sm" style={{ color: 'rgba(255, 255, 255, 0.4)' }}>
+            {/* Copyright */}
+            <p style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.4)' }}>
               © 2024 DataServe. All rights reserved.
             </p>
           </div>
