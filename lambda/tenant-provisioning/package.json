@@ -1,0 +1,16 @@
+{
+  "name": "tenant-provisioning",
+  "version": "1.0.0",
+  "description": "MOAMALAT Tenant Provisioning Lambda",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-acm": "^3.958.0",
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/client-ecs": "^3.0.0",
+    "@aws-sdk/client-elastic-load-balancing-v2": "^3.0.0",
+    "@aws-sdk/client-rds": "^3.0.0",
+    "@aws-sdk/client-route-53": "^3.0.0",
+    "@aws-sdk/client-secrets-manager": "^3.0.0",
+    "pg": "^8.11.0"
+  }
+}

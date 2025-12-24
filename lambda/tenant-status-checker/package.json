@@ -1,0 +1,11 @@
+{
+  "name": "tenant-status-checker",
+  "version": "1.0.0",
+  "description": "MOAMALAT Tenant Status Checker Lambda",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-ecs": "^3.0.0",
+    "@aws-sdk/client-elastic-load-balancing-v2": "^3.0.0",
+    "@aws-sdk/client-dynamodb": "^3.0.0"
+  }
+}
