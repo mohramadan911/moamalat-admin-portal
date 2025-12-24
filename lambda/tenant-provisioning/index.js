@@ -232,37 +232,38 @@ async function createFrontendTaskDefinition(tenant_id, subdomain) {
     console.log(`Log group already exists: ${logGroupName}`);
   }
 
-  // Get template task definition
-  const templateResponse = await ecsClient.send(new DescribeTaskDefinitionCommand({
-    taskDefinition: 'moamalat-frontend:2'
-  }));
-  
-  const template = templateResponse.taskDefinition;
   const api_url = `https://${subdomain}.moamalat-pro.com/moamalat-api/`;
+  const ai_api_url = `https://${subdomain}.moamalat-pro.com/ai-api/`;
   
-  // Modify for new tenant
+  // Create custom task definition with specific image
   const newTaskDef = {
     family: `moamalat-${subdomain}-frontend`,
-    networkMode: template.networkMode,
-    requiresCompatibilities: template.requiresCompatibilities,
-    cpu: template.cpu,
-    memory: template.memory,
-    executionRoleArn: template.executionRoleArn,
-    taskRoleArn: template.taskRoleArn,
-    containerDefinitions: template.containerDefinitions.map(container => ({
-      ...container,
+    networkMode: 'awsvpc',
+    requiresCompatibilities: ['FARGATE'],
+    cpu: '256',
+    memory: '512',
+    executionRoleArn: 'arn:aws:iam::339712855370:role/moamalat-frontend-ecs-execution-role',
+    containerDefinitions: [{
+      name: 'moamalat-frontend',
+      image: '339712855370.dkr.ecr.us-east-1.amazonaws.com/moamalat-frontend:paid',
+      portMappings: [{
+        containerPort: 80,
+        protocol: 'tcp'
+      }],
       environment: [
-        ...container.environment.filter(env => env.name !== 'API_URL'),
-        { name: 'API_URL', value: api_url }
+        { name: 'API_URL', value: api_url },
+        { name: 'AI_API_URL', value: ai_api_url }
       ],
       logConfiguration: {
-        ...container.logConfiguration,
+        logDriver: 'awslogs',
         options: {
-          ...container.logConfiguration.options,
-          'awslogs-group': `/ecs/moamalat-${subdomain}-frontend`
+          'awslogs-group': logGroupName,
+          'awslogs-region': 'us-east-1',
+          'awslogs-stream-prefix': 'ecs'
         }
-      }
-    }))
+      },
+      essential: true
+    }]
   };
   
   const response = await ecsClient.send(new RegisterTaskDefinitionCommand(newTaskDef));
@@ -528,14 +529,14 @@ async function deployFrontendService(tenant_id, subdomain) {
     networkConfiguration: {
       awsvpcConfiguration: {
         subnets: process.env.PRIVATE_SUBNET_IDS.split(','),
-        securityGroups: ['sg-0e27b16dd1e3b9819'], // Use correct ECS security group
+        securityGroups: ['sg-014d1d5be32cdb8b8'], // Use correct security group from moamalat-frontend-service
         assignPublicIp: 'DISABLED'
       }
     },
     loadBalancers: [
       {
         targetGroupArn: tenant.frontend_target_group_arn,
-        containerName: 'moamalat-frontend', // Assuming this is the container name
+        containerName: 'moamalat-frontend',
         containerPort: 80
       }
     ]

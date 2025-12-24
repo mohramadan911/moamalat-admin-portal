@@ -455,8 +455,6 @@ export default function Landing() {
               <span style={{ fontSize: '0.875rem', color: 'rgba(255, 255, 255, 0.4)' }}>Powered by</span>
               <span style={{ fontSize: '0.9375rem', color: 'rgba(255, 255, 255, 0.7)', fontWeight: '600' }}>DataServe</span>
               <span style={{ color: 'rgba(255, 255, 255, 0.2)', fontSize: '1.25rem' }}>|</span>
-              <span style={{ fontSize: '0.9375rem', color: 'rgba(255, 255, 255, 0.7)' }}>AWS Partner</span>
-              <span style={{ color: 'rgba(255, 255, 255, 0.2)', fontSize: '1.25rem' }}>|</span>
               <span style={{ fontSize: '0.9375rem', color: 'rgba(255, 255, 255, 0.7)' }}>ISO 27001 Certified</span>
             </div>
           </div>

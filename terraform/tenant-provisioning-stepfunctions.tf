@@ -173,6 +173,7 @@ resource "aws_sfn_state_machine" "tenant_provisioning" {
           "subdomain.$" = "$.subdomain"
           check_type = "backend_logs"
         }
+        ResultPath = "$.health_check"
         Next = "BackendHealthChoice"
         Retry = [
           {
@@ -188,8 +189,8 @@ resource "aws_sfn_state_machine" "tenant_provisioning" {
         Parameters = {
           "tenant_id.$" = "$.tenant_id"
           "subdomain.$" = "$.subdomain"
-          "status.$" = "$.status"
-          "reason.$" = "$.reason"
+          "status.$" = "$.health_check.status"
+          "reason.$" = "$.health_check.message"
           "retry_count.$" = "States.MathAdd($.retry_count, 1)"
         }
         Next = "CheckRetryLimit"
@@ -214,12 +215,12 @@ resource "aws_sfn_state_machine" "tenant_provisioning" {
         Type = "Choice"
         Choices = [
           {
-            Variable = "$.status"
+            Variable = "$.health_check.status"
             StringEquals = "healthy"
             Next = "PrepareForFrontend"
           },
           {
-            Variable = "$.status"
+            Variable = "$.health_check.status"
             StringEquals = "unhealthy"
             Next = "IncrementRetryCount"
           }
@@ -231,8 +232,8 @@ resource "aws_sfn_state_machine" "tenant_provisioning" {
         Parameters = {
           "tenant_id.$" = "$.tenant_id"
           "subdomain.$" = "$.subdomain"
-          "status.$" = "$.status"
-          "message.$" = "$.message"
+          "status.$" = "$.health_check.status"
+          "message.$" = "$.health_check.message"
         }
         Next = "CreateFrontendTaskDefinition"
       }
@@ -321,6 +322,7 @@ resource "aws_sfn_state_machine" "tenant_provisioning" {
           "subdomain.$" = "$.subdomain"
           check_type = "frontend"
         }
+        ResultPath = "$.health_check"
         Next = "FrontendHealthChoice"
         Retry = [
           {
@@ -335,12 +337,12 @@ resource "aws_sfn_state_machine" "tenant_provisioning" {
         Type = "Choice"
         Choices = [
           {
-            Variable = "$.status"
+            Variable = "$.health_check.status"
             StringEquals = "healthy"
             Next = "ProvisioningComplete"
           },
           {
-            Variable = "$.status"
+            Variable = "$.health_check.status"
             StringEquals = "unhealthy"
             Next = "FrontendFailed"
           }
